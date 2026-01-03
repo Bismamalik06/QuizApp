@@ -1,0 +1,268 @@
+export interface Question {
+    question: string;
+    options: string[];
+    correct: number;
+}
+
+export const QuizData: Record<string, Question[]> = {
+    "Data Structures": [
+        {
+            "question": "In a Red-Black Tree, which of the following statements is FALSE regarding its properties?",
+            "options": [
+                "Every node is either red or black.",
+                "The root is always black.",
+                "Every path from a node to its descendant NULL nodes has the same number of black nodes.",
+                "A red node can have a red child."
+            ],
+            "correct": 3
+        },
+        {
+            "question": "What is the worst-case time complexity of building a heap from an unsorted array of N elements?",
+            "options": [
+                "O(N log N)",
+                "O(N)",
+                "O(log N)",
+                "O(N^2)"
+            ],
+            "correct": 1
+        },
+        {
+            "question": "Which data structure is most suitable for implementing a Least Recently Used (LRU) Cache?",
+            "options": [
+                "Stack",
+                "Queue",
+                "Hash Map + Doubly Linked List",
+                "Binary Search Tree"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "In a disjoint-set data structure, what is the amortized time complexity of the Union-Find operations with path compression and union by rank?",
+            "options": [
+                "O(log N)",
+                "O(N)",
+                "O(1)",
+                "O(α(N)) (Inverse Ackermann function)"
+            ],
+            "correct": 3
+        },
+        {
+            "question": "Which collision resolution technique in hash tables suffers from primary clustering?",
+            "options": [
+                "Quadratic Probing",
+                "Double Hashing",
+                "Linear Probing",
+                "Separate Chaining"
+            ],
+            "correct": 2
+        }
+    ],
+    "Algorithms": [
+        {
+            "question": "What is the time complexity of the Floyd-Warshall algorithm for finding all-pairs shortest paths?",
+            "options": [
+                "O(V^3)",
+                "O(V^2 log V)",
+                "O(E log V)",
+                "O(V^2)"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "In the Master Theorem T(n) = aT(n/b) + f(n), if f(n) = O(n^log_b(a) - ε) for some ε > 0, what is the complexity?",
+            "options": [
+                "Θ(n^log_b(a))",
+                "Θ(f(n))",
+                "Θ(f(n) log n)",
+                "Θ(n log n)"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "Which of the following problems cannot be solved using a Greedy approach to get an optimal solution?",
+            "options": [
+                "Fractional Knapsack",
+                "Huffman Coding",
+                "0/1 Knapsack",
+                "Dijkstra's Algorithm"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "What is the lower bound for comparison-based sorting algorithms?",
+            "options": [
+                "Ω(N)",
+                "Ω(N log N)",
+                "Ω(N^2)",
+                "Ω(log N)"
+            ],
+            "correct": 1
+        },
+        {
+            "question": "Which problem class describes problems that are solvable in polynomial time by a non-deterministic Turing machine?",
+            "options": [
+                "P",
+                "NP",
+                "NP-Hard",
+                "NP-Complete"
+            ],
+            "correct": 1
+        }
+    ],
+    "Operating Systems": [
+        {
+            "question": "Which condition is NOT necessary for a deadlock to occur (Coffman conditions)?",
+            "options": [
+                "Mutual Exclusion",
+                "Hold and Wait",
+                "No Preemption",
+                "Circular Preemption"
+            ],
+            "correct": 3
+        },
+        {
+            "question": "What happens in the 'Belady’s Anomaly' phenomenon?",
+            "options": [
+                "Increasing page frames increases page faults.",
+                "Decreasing page frames decreases page faults.",
+                "Thrashing occurs due to low CPU utilization.",
+                "Context switching overhead exceeds processing time."
+            ],
+            "correct": 0
+        },
+        {
+            "question": "Which scheduling algorithm can lead to starvation?",
+            "options": [
+                "Round Robin",
+                "First-Come, First-Served",
+                "Shortest Job First (SJF)",
+                "Multilevel Queue with Feedback"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "What is the purpose of the Translation Lookaside Buffer (TLB)?",
+            "options": [
+                "To store page tables in main memory.",
+                "To cache recent virtual-to-physical address translations.",
+                "To handle page faults.",
+                "To manage disk I/O scheduling."
+            ],
+            "correct": 1
+        },
+        {
+            "question": "In a semaphore, what does the P (wait) operation do?",
+            "options": [
+                "Increments the semaphore value.",
+                "Decrements the semaphore value and blocks if it becomes negative.",
+                "Checks the value without modifying it.",
+                "Resets the semaphore to zero."
+            ],
+            "correct": 1
+        }
+    ],
+    "Database Systems": [
+        {
+            "question": "Which normal form removes transitive dependencies?",
+            "options": [
+                "1NF",
+                "2NF",
+                "3NF",
+                "BCNF"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "What ensures the 'Durability' property in ACID transactions?",
+            "options": [
+                "Concurrency Control",
+                "Write-Ahead Logging (WAL)",
+                "Two-Phase Locking",
+                "Deadlock Detection"
+            ],
+            "correct": 1
+        },
+        {
+            "question": "In a B+ Tree index, where are the data pointers stored?",
+            "options": [
+                "In all nodes.",
+                "Only in internal nodes.",
+                "Only in leaf nodes.",
+                "In the root node only."
+            ],
+            "correct": 2
+        },
+        {
+            "question": "What is a 'Phantom Read' anomaly?",
+            "options": [
+                "Reading uncommitted data.",
+                "Reading different values for the same row in a transaction.",
+                "A query returning a different set of rows when re-executed in the same transaction.",
+                "Lost updates due to concurrent writes."
+            ],
+            "correct": 2
+        },
+        {
+            "question": "Which isolation level prevents Dirty Reads but allows Non-Repeatable Reads?",
+            "options": [
+                "Read Uncommitted",
+                "Read Committed",
+                "Repeatable Read",
+                "Serializable"
+            ],
+            "correct": 1
+        }
+    ],
+    "Computer Networks": [
+        {
+            "question": "In the OSI model, which layer is responsible for logical addressing and routing?",
+            "options": [
+                "Data Link Layer",
+                "Transport Layer",
+                "Network Layer",
+                "Session Layer"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "What is the maximum size of the payload in a standard Ethernet frame (MTU)?",
+            "options": [
+                "1500 bytes",
+                "1518 bytes",
+                "1460 bytes",
+                "64 bytes"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "Which protocol is used to map an IP address to a MAC address?",
+            "options": [
+                "DHCP",
+                "DNS",
+                "ARP",
+                "ICMP"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "In TCP, what mechanism is used for flow control?",
+            "options": [
+                "Three-way handshake",
+                "Sequence numbers",
+                "Sliding Window",
+                "Slow Start"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "Which of the following IP addresses is a Class B private address?",
+            "options": [
+                "10.0.0.5",
+                "192.168.1.1",
+                "172.16.0.1",
+                "169.254.0.1"
+            ],
+            "correct": 2
+        }
+    ]
+};
