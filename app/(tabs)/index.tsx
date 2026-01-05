@@ -1,263 +1,5 @@
-// import React, { useState, useEffect } from 'react';
-// import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-// import { Ionicons } from '@expo/vector-icons';
-
-
-// interface Question {
-//   question: string;
-//   options: string[];
-//   correct: number;
-// }
-
-// const quizData: Question[] = [
-//   {
-//     question: 'What is the capital of France?',
-//     options: ['London', 'Berlin', 'Paris', 'Madrid'],
-//     correct: 2,
-//   },
-//   {
-//     question: 'Which planet is known as the Red Planet?',
-//     options: ['Venus', 'Mars', 'Jupiter', 'Saturn'],
-//     correct: 1,
-//   },
-//   {
-//     question: 'What is 2 + 2?',
-//     options: ['3', '4', '5', '6'],
-//     correct: 1,
-//   },
-//   {
-//     question: 'Who wrote "To Kill a Mockingbird"?',
-//     options: ['Harper Lee', 'J.K. Rowling', 'Mark Twain', 'Ernest Hemingway'],
-//     correct: 0,
-//   },
-//   {
-//     question: 'What is the largest ocean on Earth?',
-//     options: ['Atlantic', 'Indian', 'Arctic', 'Pacific'],
-//     correct: 3,
-//   },
-// ];
-
-// export default function QuizApp() {
-//   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-//   const [answers, setAnswers] = useState<number[]>([]);
-//   const [score, setScore] = useState(0);
-//   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
-//   const [timeLeft, setTimeLeft] = useState(10);
-//   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-
-//   const handleAnswerSelect = (index: number) => {
-//     setSelectedIndex(index);
-//     setTimeout(() => {
-//       const newAnswers = [...answers, index];
-//       setAnswers(newAnswers);
-
-//       if (index === quizData[currentQuestionIndex].correct) {
-//         setScore(score + 1);
-//       }
-
-//       if (currentQuestionIndex < quizData.length - 1) {
-//         setCurrentQuestionIndex(currentQuestionIndex + 1);
-//         setTimeLeft(10);
-//         setSelectedIndex(null);
-//       } else {
-//         setIsQuizCompleted(true);
-//       }
-//     }, 500); // delay to show selection
-//   };
-
-//   const restartQuiz = () => {
-//     setCurrentQuestionIndex(0);
-//     setAnswers([]);
-//     setScore(0);
-//     setIsQuizCompleted(false);
-//     setTimeLeft(10);
-//   };
-
-//   useEffect(() => {
-//     if (timeLeft > 0 && !isQuizCompleted) {
-//       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-//       return () => clearTimeout(timer);
-//     } else if (timeLeft === 0 && !isQuizCompleted) {
-//       handleAnswerSelect(-1);
-//     }
-//   }, [timeLeft, isQuizCompleted]);
-
-//   if (isQuizCompleted) {
-//     return (
-//       <View style={styles.container}>
-//         <Text style={styles.title}>Quiz Completed!</Text>
-//         <Text style={styles.score}>
-//           Your Score: {score} / {quizData.length}
-//         </Text>
-//         <TouchableOpacity style={styles.restartButton} onPress={restartQuiz}>
-//           <Text style={styles.restartButtonText}>Restart Quiz</Text>
-//         </TouchableOpacity>
-//       </View>
-//     );
-//   }
-
-//   const currentQuestion = quizData[currentQuestionIndex];
-
-//   return (
-//     <View style={styles.container}>
-//       <View style={styles.progressContainer}>
-//         <Text style={styles.progressText}>
-//           Question {currentQuestionIndex + 1} of {quizData.length}
-//         </Text>
-//         <View style={styles.progressBar}>
-//           <View style={[styles.progressFill, { width: `${((currentQuestionIndex + 1) / quizData.length) * 100}%` }]} />
-//         </View>
-//       </View>
-//       <View style={styles.timerCircle}>
-//         <Text style={styles.timerText}>{timeLeft}</Text>
-//       </View>
-//       <Text style={styles.question}>{currentQuestion.question}</Text>
-//       <View style={styles.optionsContainer}>
-//         {currentQuestion.options.map((option, index) => {
-//           const letters = ['A', 'B', 'C', 'D'];
-//           return (
-//             <TouchableOpacity
-//               key={index}
-//               style={[
-//                 styles.optionButton,
-//                 selectedIndex === index && styles.selectedOptionButton,
-//               ]}
-//               onPress={() => handleAnswerSelect(index)}
-//             >
-//               <View style={styles.optionContent}>
-//                 <Ionicons name="radio-button-off" size={20} color="#fff" />
-//                 <Text style={styles.optionLetter}>{letters[index]}.</Text>
-//                 <Text style={styles.optionText}>{option}</Text>
-//               </View>
-//             </TouchableOpacity>
-//           );
-//         })}
-//       </View>
-//     </View>
-//   );
-// }
-
-// const shadowStyle = Platform.select({
-//   ios: {
-//     shadowColor: '#000',
-//     shadowOffset: { width: 0, height: 2 },
-//     shadowOpacity: 0.3,
-//     shadowRadius: 4,
-//   },
-//   android: {
-//     elevation: 5,
-//   },
-// });
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 20,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: '#f3e5f5',
-//   },
-//   title: {
-//     fontSize: 28,
-//     fontWeight: 'bold',
-//     marginBottom: 20,
-//     color: '#333',
-//   },
-//   progressContainer: {
-//     width: '100%',
-//     alignItems: 'center',
-//     marginBottom: 20,
-//   },
-//   progressText: {
-//     fontSize: 18,
-//     fontWeight: 'bold',
-//     color: '#333',
-//     marginBottom: 10,
-//   },
-//   progressBar: {
-//     width: '80%',
-//     height: 10,
-//     backgroundColor: '#e0e0e0',
-//     borderRadius: 5,
-//     overflow: 'hidden',
-//   },
-//   progressFill: {
-//     height: '100%',
-//     backgroundColor: '#6200ea',
-//     borderRadius: 5,
-//   },
-//   timerCircle: {
-//     width: 60,
-//     height: 60,
-//     borderRadius: 30,
-//     borderWidth: 3,
-//     borderColor: '#6200ea',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     marginBottom: 20,
-//   },
-//   timerText: {
-//     fontSize: 18,
-//     color: '#e02323ff',
-//     fontWeight: 'bold',
-//   },
-//   question: {
-//     fontSize: 24,
-//     textAlign: 'center',
-//     marginBottom: 40,
-//     color: '#333',
-//     fontWeight: 'bold',
-//   },
-//   optionsContainer: {
-//     width: '100%',
-//     maxWidth: 400,
-//   },
-//   optionButton: {
-//     backgroundColor: '#6200ea',
-//     padding: 18,
-//     marginVertical: 8,
-//     borderRadius: 15,
-//     ...shadowStyle,
-//   },
-//   selectedOptionButton: {
-//     backgroundColor: '#7c4dff',
-//   },
-//   optionContent: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//   },
-//   optionLetter: {
-//     color: 'white',
-//     fontSize: 18,
-//     fontWeight: 'bold',
-//     marginLeft: 10,
-//     marginRight: 15,
-//   },
-//   optionText: {
-//     color: 'white',
-//     fontSize: 16,
-//     flex: 1,
-//   },
-//   score: {
-//     fontSize: 24,
-//     marginBottom: 40,
-//     color: '#333',
-//     fontWeight: '600',
-//   },
-//   restartButton: {
-//     backgroundColor: '#03dac6',
-//     padding: 18,
-//     borderRadius: 15,
-//     ...shadowStyle,
-//   },
-//   restartButtonText: {
-//     color: '#000',
-//     fontSize: 18,
-//     textAlign: 'center',
-//     fontWeight: 'bold',
-//   },
-// });
-
+// This file contains the main QuizApp component for a React Native quiz application.
+// It handles category selection, quiz questions, timer, scoring, and Firebase integration for data and score saving.
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Platform, ScrollView, ActivityIndicator } from 'react-native';
@@ -266,22 +8,27 @@ import { db } from './firebase';               // firebase.js file
 import { ref, onValue, push } from 'firebase/database';
 import { QuizData, Question } from '../../constants/QuizData';
 
+// Main component for the Quiz App
 export default function QuizApp() {
+  // State variables for quiz data and categories
   // 🔥 Initialize with Local Data to ensure categories are visible immediately
-  const [allQuizData, setAllQuizData] = useState<Record<string, Question[]> | null>(QuizData);
-  const [categories, setCategories] = useState<string[]>(Object.keys(QuizData));
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [allQuizData, setAllQuizData] = useState<Record<string, Question[]> | null>(QuizData); // Holds all quiz data, initially from local QuizData
+  const [categories, setCategories] = useState<string[]>(Object.keys(QuizData)); // List of available categories
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // Currently selected category
 
-  const [quizData, setQuizData] = useState<Question[]>([]);
+  // State variables for quiz progress
+  const [quizData, setQuizData] = useState<Question[]>([]); // Questions for the selected category
   const [loading, setLoading] = useState(false); // No loading needed for local data
 
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<number[]>([]);
-  const [score, setScore] = useState(0);
-  const [isQuizCompleted, setIsQuizCompleted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(10);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  // State variables for current quiz state
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Index of the current question
+  const [answers, setAnswers] = useState<number[]>([]); // Array of selected answer indices
+  const [score, setScore] = useState(0); // Current score
+  const [isQuizCompleted, setIsQuizCompleted] = useState(false); // Whether the quiz is finished
+  const [timeLeft, setTimeLeft] = useState(10); // Time left for the current question
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null); // Index of the currently selected option
 
+  // useEffect hook to fetch quiz data from Firebase on component mount
   // 🔥 Fetch quiz from Firebase (Optional: Overrides local if new data structure is found)
   useEffect(() => {
     const quizRef = ref(db, "quiz");
@@ -289,7 +36,7 @@ export default function QuizApp() {
       const data = snapshot.val();
       if (data) {
         if (Array.isArray(data)) {
-          // Legacy support: If Firebase has old data (Array), we IGNORE it 
+          // Legacy support: If Firebase has old data (Array), we IGNORE it
           // and keep our Local Data (Categories) to prevent reverting to "General".
           console.log("Legacy data found in Firebase. Using local categorized data instead.");
         } else {
@@ -301,6 +48,7 @@ export default function QuizApp() {
     });
   }, []);
 
+  // useEffect hook to manage the timer for each question
   // 🔥 Timer
   useEffect(() => {
     if (selectedCategory && timeLeft > 0 && !isQuizCompleted) {
@@ -311,6 +59,7 @@ export default function QuizApp() {
     }
   }, [timeLeft, isQuizCompleted, selectedCategory]);
 
+  // Function to handle category selection
   const handleCategorySelect = (category: string) => {
     if (allQuizData && allQuizData[category]) {
       setSelectedCategory(category);
@@ -319,12 +68,14 @@ export default function QuizApp() {
     }
   };
 
+  // Function to go back to category selection screen
   const handleBackToCategories = () => {
     setSelectedCategory(null);
     setQuizData([]);
     restartQuiz();
   };
 
+  // Function to handle when a user selects an answer option
   // 🔥 Handle answer selection
   const handleAnswerSelect = (index: number) => {
     setSelectedIndex(index);
@@ -347,6 +98,7 @@ export default function QuizApp() {
     }, 500); // delay to show selection
   };
 
+  // Function to reset the quiz state for restarting
   // 🔥 Restart quiz
   const restartQuiz = () => {
     setCurrentQuestionIndex(0);
@@ -357,14 +109,15 @@ export default function QuizApp() {
     setSelectedIndex(null);
   };
 
+  // Function to save the final score to Firebase database
   // 🔥 Save score to Firebase
   const saveScoreToFirebase = (finalAnswers: number[]) => {
     // Calculate final score based on the answers passed to ensure accuracy
-    // (State updates is async, so using local calculation for validation if needed, 
+    // (State updates is async, so using local calculation for validation if needed,
     // but here we use the state `score` which might be one step behind if not careful.
-    // However, existing logic updated score before calling this, except for the last question. 
-    // Actually, in handleAnswerSelect, setScore is called before this. 
-    // But React batches updates. Safe way is to calculate score here or use useEffect. 
+    // However, existing logic updated score before calling this, except for the last question.
+    // Actually, in handleAnswerSelect, setScore is called before this.
+    // But React batches updates. Safe way is to calculate score here or use useEffect.
     // For simplicity, we'll assume the previous logic was 'good enough' or fix it.)
 
     // Better Calc for final question:
@@ -384,6 +137,7 @@ export default function QuizApp() {
     setScore(finalScore);
   };
 
+  // Render loading screen if quiz data is loading
   // 🔥 Loading screen
   if (loading) {
     return (
@@ -417,6 +171,7 @@ export default function QuizApp() {
     }
   };
 
+  // Render category selection screen if no category is selected
   // 📋 Category Selection Screen
   if (!selectedCategory) {
     return (
@@ -435,7 +190,7 @@ export default function QuizApp() {
               </View>
               <View style={styles.categoryInfo}>
                 <Text style={styles.categoryText}>{category}</Text>
-                <Text style={styles.categorySubText}>10 Questions</Text>
+                <Text style={styles.categorySubText}>5 Questions</Text>
               </View>
               <Ionicons name="chevron-forward" size={24} color="#fff" />
             </TouchableOpacity>
@@ -448,6 +203,7 @@ export default function QuizApp() {
     );
   }
 
+  // Render quiz completion screen if quiz is finished
   // 🏆 Quiz Completed Screen
   if (isQuizCompleted) {
     return (
@@ -472,6 +228,7 @@ export default function QuizApp() {
 
   const currentQuestion = quizData[currentQuestionIndex];
 
+  // Render the main quiz screen with question, options, progress, and timer
   return (
     <View style={styles.container}>
       {/* Back Button Header */}
@@ -534,6 +291,7 @@ export default function QuizApp() {
   );
 }
 
+// Styles for the component, including platform-specific shadow styles
 // 🔹 Styles
 const shadowStyle = Platform.select({
   ios: {
@@ -547,6 +305,7 @@ const shadowStyle = Platform.select({
   },
 });
 
+// StyleSheet object defining all the styles used in the component
 const styles = StyleSheet.create({
   container: {
     flex: 1,
